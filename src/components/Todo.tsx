@@ -2,7 +2,7 @@ import { TaskType, TodoProps } from "@/interfaces/interface";
 import { todoUtils } from "@/utils/todoUtils";
 import { Checkbox } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa";
 
@@ -10,7 +10,6 @@ const Todo = (props: TodoProps) => {
   const queryClient = useQueryClient();
   const [completed, setCompleted] = useState(props.todo.completed);
 
-  // delete todo function
   const deleteTodo = useMutation({
     mutationFn: todoUtils.deleteTodo,
     onSuccess: () => {
@@ -23,12 +22,10 @@ const Todo = (props: TodoProps) => {
     },
   });
 
-  // delete Task
   const handleDelete = (id: number) => {
     deleteTodo.mutate(id);
   };
 
-  // edit Task
   const editTodo = useMutation({
     mutationFn: todoUtils.editTodo,
     onSuccess: () => {
@@ -39,7 +36,6 @@ const Todo = (props: TodoProps) => {
     },
   });
 
-  // completed task
   const handleComplete = (id: number) => {
     const getTodoById: TaskType | undefined = props?.todos.find(
       (todo: TaskType) => todo.id == id

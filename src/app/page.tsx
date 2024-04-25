@@ -18,7 +18,6 @@ export default function Home() {
   const getTasks = useTodo();
   const data = getTasks?.data?.data;
 
-  // add task
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputValue = event.target.task.value.trim();
@@ -34,7 +33,6 @@ export default function Home() {
     event.target.task.value = "";
   };
 
-  // add task function
   const addTask = useMutation({
     mutationFn: todoUtils.addTodo,
     onSuccess: () => {
@@ -45,7 +43,6 @@ export default function Home() {
     },
   });
 
-  // filter
   let filterData: TaskType[] = data;
 
   switch (filter) {
@@ -62,7 +59,6 @@ export default function Home() {
       break;
   }
 
-  // pagination
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = filterData
@@ -79,7 +75,6 @@ export default function Home() {
 
   const currentPageData = filterData?.slice(startIndex, endIndex);
 
-  // loading
   if (getTasks.isLoading) return <Loading />;
 
   return (
